@@ -37,7 +37,7 @@ export default function GarajePage() {
   const tierLabel = isFounder ? "PILOTO FUNDADOR" : user.tier === "pro" ? "PRO" : "PILOTO";
 
   return (
-    <main className="min-h-screen bg-nfs-bg bg-carbon">
+    <main className="min-h-screen bg-nfs-bg bg-carbon overflow-x-hidden">
       <div className="absolute inset-0 bg-grid pointer-events-none z-0 opacity-40" />
 
       <nav className="relative z-10 flex items-center justify-between px-6 py-4 border-b border-zinc-800/70">

@@ -53,7 +53,7 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
   }, {});
 
   return (
-    <main className="min-h-screen bg-nfs-bg bg-carbon">
+    <main className="min-h-screen bg-nfs-bg bg-carbon overflow-x-hidden">
       <div className="rain-overlay" />
       <div className="grain-overlay" />
       <div className="absolute inset-0 bg-grid pointer-events-none z-[1] opacity-30" />
@@ -109,8 +109,8 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
           {/* ─── Left: Specs ─── */}
           <div className="lg:col-span-2 space-y-8">
             {/* Respete & Stats */}
-            <div className="flex items-center justify-between border border-zinc-800 bg-zinc-950/80 backdrop-blur-sm p-5">
-              <div className="flex items-center gap-6">
+            <div className="flex flex-wrap items-center justify-between border border-zinc-800 bg-zinc-950/80 backdrop-blur-sm p-5">
+              <div className="flex items-center gap-4 md:gap-6">
                 <div>
                   <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-zinc-500">RESPETO</p>
                   <p className="text-2xl font-black italic text-yellow-400">{vehicle.respectCount}</p>

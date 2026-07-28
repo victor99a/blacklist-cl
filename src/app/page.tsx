@@ -123,7 +123,7 @@ export default function Home() {
   const vehicles = topVehicles.length > 0 ? topVehicles : [];
 
   return (
-    <main className="relative min-h-screen bg-nfs-bg bg-carbon overflow-hidden">
+    <main className="relative min-h-screen bg-nfs-bg bg-carbon overflow-x-hidden">
       <div className="rain-overlay" />
       <div className="grain-overlay" />
       <div className="absolute inset-0 bg-grid pointer-events-none z-[1]" />
@@ -150,7 +150,7 @@ export default function Home() {
           <span className="w-1.5 h-1.5 bg-yellow-500 rotate-45" />
         </motion.div>
         <motion.div variants={scaleIn} initial="initial" animate="animate" transition={{ duration: 0.7, delay: 0.2, ease: AGGRESSIVE_EASE }} className="relative">
-          <h1 className="font-black uppercase italic tracking-[0.02em] text-zinc-100 text-7xl md:text-8xl lg:text-9xl leading-[0.85] text-center select-none glitch-text">BLACK LIST<br />CHILE</h1>
+          <h1 className="font-black uppercase italic tracking-[0.02em] text-zinc-100 text-5xl sm:text-7xl md:text-8xl lg:text-9xl leading-[0.85] text-center select-none glitch-text">BLACK LIST<br />CHILE</h1>
           <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-3/4 h-[2px] bg-gradient-to-r from-transparent via-yellow-500/40 to-transparent" />
         </motion.div>
         <motion.p variants={fadeInUp} initial="initial" animate="animate" transition={{ duration: 0.5, delay: 0.4, ease: AGGRESSIVE_EASE }} className="mt-8 max-w-lg text-center text-zinc-400 text-sm tracking-wide leading-relaxed">Sube las fotos de tu proyecto, detalla dónde realizaste cada modificación y gana puntos de recompensa.</motion.p>
@@ -166,10 +166,6 @@ export default function Home() {
             <span className="font-bold uppercase tracking-[0.25em] text-yellow-400 text-sm">PRESIONA PARA INICIAR</span>
           </SportButton>
           <SportButton className="border border-emerald-500/30 text-emerald-400/90 font-bold uppercase tracking-[0.2em] px-10 py-5 text-sm transition-all duration-300 hover:bg-emerald-500/10 hover:border-emerald-500/60 hover:shadow-[0_0_16px_rgba(16,185,129,0.15)]">VER BLACKLIST</SportButton>
-        </motion.div>
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.6 }} className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-          <span className="text-[9px] font-mono tracking-[0.3em] text-zinc-700">DESCUBRE</span>
-          <div className="w-[1px] h-8 bg-gradient-to-b from-zinc-700 to-transparent" />
         </motion.div>
       </section>
 

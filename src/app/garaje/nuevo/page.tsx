@@ -165,7 +165,7 @@ export default function NuevoProyectoPage() {
                   <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Proyecto Alba" required className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono tracking-wider placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20" />
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
                     <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">AÑO</label>
                     <input value={year} onChange={(e) => setYear(e.target.value)} placeholder="2001" className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20" />
@@ -217,7 +217,7 @@ export default function NuevoProyectoPage() {
               <div className="space-y-5">
                 <div className="p-4 border border-zinc-800 bg-zinc-950/50">
                   <p className="text-[10px] font-mono tracking-widest text-zinc-500 mb-3">AGREGAR MODIFICACIÓN</p>
-                  <div className="grid grid-cols-3 gap-3 mb-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
                     <select value={modCategory} onChange={(e) => setModCategory(e.target.value)} className="bg-zinc-900 border border-zinc-700 px-3 py-3 text-zinc-100 text-xs font-mono tracking-wider focus:outline-none focus:border-yellow-500/50">
                       {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
                     </select>
@@ -261,7 +261,7 @@ export default function NuevoProyectoPage() {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="p-4 border border-zinc-800 bg-zinc-950/50">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 mb-4">DATOS DEL TALLER (OPCIONAL)</p>
-                  <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     <div>
                       <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">NOMBRE DEL TALLER</label>
                       <input value={wsName} onChange={(e) => setWsName(e.target.value)} placeholder="Ej: STAGE 3 MOTORSPORT" className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50" />
