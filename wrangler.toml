@@ -1,0 +1,9 @@
+# Cloudflare Pages configuration
+# Compatible with @cloudflare/next-on-pages for SSR deployment
+# Or use static export with `output: "export"` in next.config.ts
+
+name = "blacklist-cl"
+compatibility_date = "2025-07-01"
+compatibility_flags = ["nodejs_compat"]
+
+pages_build_output_dir = ".vercel/output/static"

@@ -17,16 +17,25 @@ const titillium = Titillium_Web({
 });
 
 export const metadata: Metadata = {
-  title: "BLACKLIST.CL // SANTIAGO CHILE",
+  title: {
+    default: "BLACK LIST CHILE // El Garaje Virtual & Ranking Automotriz",
+    template: "%s // BLACK LIST CHILE",
+  },
   description:
-    "Plataforma y garaje virtual para la comunidad tuerca en Chile. Documenta tu build, reseña talleres, sube en el ranking nacional.",
+    "El garaje virtual de la comunidad tuerca chilena. Sube tu build, rese\u00F1a talleres y compite en el ranking nacional.",
   openGraph: {
-    title: "BLACKLIST.CL // SANTIAGO CHILE",
+    title: "BLACK LIST CHILE // El Garaje Virtual & Ranking Automotriz",
     description:
-      "Plataforma y garaje virtual para la comunidad tuerca en Chile.",
+      "El garaje virtual de la comunidad tuerca chilena. Sube tu build, rese\u00F1a talleres y compite en el ranking nacional.",
     siteName: "Blacklist.cl",
     locale: "es_CL",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BLACK LIST CHILE // El Garaje Virtual",
+    description:
+      "El garaje virtual de la comunidad tuerca chilena.",
   },
 };
 

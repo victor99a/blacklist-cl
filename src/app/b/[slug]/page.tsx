@@ -1,9 +1,45 @@
+import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { RespectButton } from "./RespectButton";
+import { ShareButton } from "./ShareButton";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const vehicle = await prisma.vehicle.findUnique({
+    where: { slug },
+    select: {
+      name: true, make: true, model: true, year: true,
+      mainImageUrl: true, description: true,
+      user: { select: { username: true } },
+    },
+  });
+  if (!vehicle) return { title: "Proyecto no encontrado" };
+
+  const title = `${vehicle.make} ${vehicle.model} (${vehicle.year ?? "—"})`;
+  const desc = `Revisa la build, modificaciones y talleres de @${vehicle.user.username} en La Blacklist.`;
+
+  return {
+    title,
+    description: desc,
+    openGraph: {
+      title: `${title} // BLACK LIST CHILE`,
+      description: desc,
+      images: vehicle.mainImageUrl
+        ? [{ url: vehicle.mainImageUrl, width: 1200, height: 630, alt: vehicle.name }]
+        : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} // BLACK LIST CHILE`,
+      description: desc,
+      images: vehicle.mainImageUrl ? [vehicle.mainImageUrl] : [],
+    },
+  };
+}
 
 export default async function VehicleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -169,6 +205,9 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
                 +5 PTS DE RECOMPENSA AL DUE\u00D1O
               </p>
             </div>
+
+            {/* Share Button */}
+            <ShareButton slug={vehicle.slug} />
 
             {/* Owner info */}
             <div className="border border-zinc-800 bg-zinc-950/80 backdrop-blur-sm p-5">

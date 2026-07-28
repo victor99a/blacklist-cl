@@ -24,7 +24,8 @@ export default async function GarajePage() {
 
   if (!user) redirect("/");
 
-  const tierLabel = user.tier === "founder" ? "FUNDADOR" : user.tier === "pro" ? "PRO" : "PILOTO";
+  const isFounder = user.tier === "founder";
+  const tierLabel = isFounder ? "PILOTO FUNDADOR" : user.tier === "pro" ? "PRO" : "PILOTO";
 
   return (
     <main className="min-h-screen bg-nfs-bg bg-carbon">
@@ -41,7 +42,11 @@ export default async function GarajePage() {
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 py-10">
         {/* ─── License Card ─── */}
-        <div className="border border-zinc-800 bg-zinc-950/90 backdrop-blur-sm p-6 md:p-8 mb-10 relative overflow-hidden">
+        <div className={`p-6 md:p-8 mb-10 relative overflow-hidden backdrop-blur-sm ${
+          isFounder
+            ? "border border-yellow-500/50 bg-zinc-950/90 shadow-[0_0_30px_rgba(234,179,8,0.08)]"
+            : "border border-zinc-800 bg-zinc-950/90"
+        }`}>
           <div className="absolute top-0 right-0 w-48 h-48 bg-glow-gold rounded-full pointer-events-none" />
           <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-yellow-500/30 to-transparent" />
 
@@ -59,7 +64,12 @@ export default async function GarajePage() {
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-1">
                 <h1 className="hud-header text-2xl md:text-3xl">{user.displayName || user.username}</h1>
-                <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-yellow-500/80 bg-yellow-500/10 border border-yellow-500/30 px-2 py-1">
+                <span className={`text-[8px] font-bold uppercase tracking-[0.2em] px-2 py-1 flex items-center gap-1 ${
+                  isFounder
+                    ? "text-yellow-300 bg-yellow-500/10 border border-yellow-400/60 shadow-[0_0_8px_rgba(234,179,8,0.2)]"
+                    : "text-yellow-500/80 bg-yellow-500/10 border border-yellow-500/30"
+                }`}>
+                  {isFounder && <span className="text-[10px]">\u2605</span>}
                   {tierLabel}
                 </span>
               </div>
