@@ -34,7 +34,11 @@ export default function NuevoProyectoPage() {
   const [model, setModel] = useState("");
   const [year, setYear] = useState("");
   const [power, setPower] = useState("");
+  const [specs0_100, setSpecs0_100] = useState("");
+  const [drivetrain, setDrivetrain] = useState("AWD");
   const [city, setCity] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [tiktok, setTiktok] = useState("");
   const [description, setDescription] = useState("");
   const [mainImage, setMainImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState("");
@@ -82,9 +86,13 @@ export default function NuevoProyectoPage() {
         name, make, model,
         year: year || undefined,
         power: power || undefined,
+        specs0_100: specs0_100 || undefined,
+        drivetrain: drivetrain || undefined,
         city: city || "Santiago",
         mainImageUrl: imageUrl || undefined,
         description,
+        instagram: instagram || undefined,
+        tiktok: tiktok || undefined,
         modifications: mods,
         workshop: wsName.trim() ? {
           name: wsName,
@@ -165,18 +173,59 @@ export default function NuevoProyectoPage() {
                   <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Proyecto Alba" required className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono tracking-wider placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20" />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">AÑO</label>
                     <input value={year} onChange={(e) => setYear(e.target.value)} placeholder="2001" className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20" />
                   </div>
                   <div>
-                    <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">POTENCIA (HP)</label>
-                    <input value={power} onChange={(e) => setPower(e.target.value)} placeholder="350" className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20" />
-                  </div>
-                  <div>
                     <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">CIUDAD</label>
                     <input value={city} onChange={(e) => setCity(e.target.value)} placeholder="Santiago" className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20" />
+                  </div>
+                </div>
+
+                {/* HUD Specs */}
+                <div className="border border-zinc-800 bg-zinc-950/50 p-4">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-yellow-500/60 mb-3">MÉTRICAS FÍSICAS</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                      <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">POTENCIA (HP)</label>
+                      <input value={power} onChange={(e) => setPower(e.target.value)} placeholder="350" className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">0-100 KM/H</label>
+                      <input value={specs0_100} onChange={(e) => setSpecs0_100(e.target.value)} placeholder="4.5s" className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">TRACCIÓN</label>
+                      <div className="flex gap-1">
+                        {["AWD", "FWD", "RWD"].map((t) => (
+                          <button key={t} type="button" onClick={() => setDrivetrain(t)}
+                            className={`flex-1 py-3 text-xs font-bold uppercase tracking-[0.15em] border transition-all duration-300 ${
+                              drivetrain === t
+                                ? "bg-yellow-500/20 border-yellow-500/50 text-yellow-400"
+                                : "bg-zinc-900 border-zinc-700 text-zinc-500 hover:border-zinc-600"
+                            }`}>
+                            {t}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Social */}
+                <div className="border border-zinc-800 bg-zinc-950/50 p-4">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-yellow-500/60 mb-3">REDES SOCIALES</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">INSTAGRAM</label>
+                      <input value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">TIKTOK</label>
+                      <input value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario (opcional)" className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20" />
+                    </div>
                   </div>
                 </div>
 

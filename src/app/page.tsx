@@ -22,8 +22,10 @@ type TopVehicle = {
   pilot: string;
   vehicle: string;
   city: string;
-  power: number;
-  mods: number;
+  power: number | null;
+  specs0_100: string | null;
+  drivetrain: string | null;
+  modsCount: number;
   respect: number;
   bounty: number;
   tags: string[];
@@ -267,16 +269,16 @@ export default function Home() {
                       {/* Quick specs 3-col grid */}
                       <div className="grid grid-cols-3 gap-2 py-2 border-y border-zinc-800 mb-3 text-center">
                         <div>
-                          <p className="font-mono text-[11px] tracking-wider text-zinc-300">{Math.round(car.power * 50)} HP</p>
+                          <p className="font-mono text-[11px] tracking-wider text-zinc-300">{car.power ? `${car.power} HP` : "—"}</p>
                           <p className="text-[7px] font-mono tracking-widest text-zinc-600">POTENCIA</p>
                         </div>
                         <div>
-                          <p className="font-mono text-[11px] tracking-wider text-zinc-300">{car.city?.slice(0, 6) || "—"}</p>
-                          <p className="text-[7px] font-mono tracking-widest text-zinc-600">CIUDAD</p>
+                          <p className="font-mono text-[11px] tracking-wider text-zinc-300">{car.specs0_100 || "—"}</p>
+                          <p className="text-[7px] font-mono tracking-widest text-zinc-600">0-100</p>
                         </div>
                         <div>
-                          <p className="font-mono text-[11px] tracking-wider text-zinc-300">#{car.rank}</p>
-                          <p className="text-[7px] font-mono tracking-widest text-zinc-600">RANKING</p>
+                          <p className="font-mono text-[11px] tracking-wider text-zinc-300">{car.drivetrain || "—"}</p>
+                          <p className="text-[7px] font-mono tracking-widest text-zinc-600">TRACCIÓN</p>
                         </div>
                       </div>
 
@@ -289,9 +291,9 @@ export default function Home() {
 
                       {/* Stat bars */}
                       <div className="space-y-1 mb-3">
-                        <StatBar value={car.power} label="POWER" />
-                        <StatBar value={car.mods} label="MODS" />
-                        <StatBar value={car.respect} label="RESPETO" />
+                        <StatBar value={car.power ? Math.min(10, car.power / 50) : 0} label="POWER" />
+                        <StatBar value={car.modsCount ? Math.min(10, car.modsCount * 2) : 0} label="MODS" />
+                        <StatBar value={car.respect ? Math.min(10, car.respect / 85) : 0} label="RESPETO" />
                       </div>
 
                       {/* CTA */}

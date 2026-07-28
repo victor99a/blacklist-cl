@@ -43,8 +43,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 function QuickSpecs({ vehicle }: { vehicle: any }) {
   const specs = [
     { label: "POTENCIA", value: vehicle.power ? `${vehicle.power} HP` : "—", icon: "⚡" },
-    { label: "0-100 KM/H", value: estimateZeroToHundred(vehicle.power) || "—", icon: "⏱️" },
-    { label: "TRACCIÓN", value: vehicle.traction || "—", icon: "⚙️" },
+    { label: "0-100 KM/H", value: vehicle.specs0_100 || "—", icon: "⏱️" },
+    { label: "TRACCIÓN", value: vehicle.drivetrain || "—", icon: "⚙️" },
   ];
 
   return (
@@ -58,18 +58,6 @@ function QuickSpecs({ vehicle }: { vehicle: any }) {
       ))}
     </div>
   );
-}
-
-function estimateZeroToHundred(power: number | null): string | null {
-  if (!power) return null;
-  // Rough estimate based on power-to-weight assumptions
-  if (power > 500) return "3.8s";
-  if (power > 400) return "4.2s";
-  if (power > 350) return "4.8s";
-  if (power > 300) return "5.4s";
-  if (power > 250) return "6.2s";
-  if (power > 200) return "7.0s";
-  return "8.5s";
 }
 
 export default async function VehicleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -131,14 +119,26 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
                   <h1 className="font-black uppercase italic tracking-wider text-xl text-white drop-shadow-lg">
                     {vehicle.make} {vehicle.model}
                   </h1>
-                  <a
-                    href={`https://instagram.com/${vehicle.user.username.replace("@", "")}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-mono text-yellow-500 hover:underline mt-1"
-                  >
-                    @{vehicle.user.username}
-                  </a>
+                  <div className="flex items-center gap-3 mt-1">
+                    <a
+                      href={`https://instagram.com/${(vehicle.instagram || vehicle.user.username).replace("@", "")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-mono text-yellow-500 hover:underline"
+                    >
+                      @{vehicle.instagram || vehicle.user.username}
+                    </a>
+                    {vehicle.tiktok && (
+                      <a
+                        href={`https://tiktok.com/${vehicle.tiktok.replace("@", "")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs font-mono text-zinc-400 hover:text-zinc-300 hover:underline"
+                      >
+                        {vehicle.tiktok}
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -214,14 +214,26 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
                 </div>
                 <div>
                   <p className="font-bold uppercase italic tracking-wider text-zinc-100 text-sm">{vehicle.user.displayName || vehicle.user.username}</p>
-                  <a
-                    href={`https://instagram.com/${vehicle.user.username.replace("@", "")}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[10px] font-mono tracking-widest text-yellow-500 hover:underline inline-flex items-center gap-1"
-                  >
-                    @{vehicle.user.username}
-                  </a>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={`https://instagram.com/${(vehicle.instagram || vehicle.user.username).replace("@", "")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] font-mono tracking-widest text-yellow-500 hover:underline"
+                    >
+                      @{vehicle.instagram || vehicle.user.username}
+                    </a>
+                    {vehicle.tiktok && (
+                      <a
+                        href={`https://tiktok.com/${vehicle.tiktok.replace("@", "")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] font-mono tracking-widest text-zinc-500 hover:text-zinc-400 hover:underline"
+                      >
+                        {vehicle.tiktok}
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
               {vehicle.city && (
