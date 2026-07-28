@@ -101,8 +101,11 @@ export default function Home() {
     try {
       const data = await api.login(authUsername, authPassword);
       setToken(data.token);
-      setAuthSuccess("Acceso concedido. Bienvenido al garaje.");
-      setTimeout(() => { setShowLogin(false); setAuthSuccess(""); setAuthUsername(""); setAuthPassword(""); setAuthEmail(""); }, 1500);
+      setAuthSuccess("Acceso concedido. Redirigiendo...");
+      setTimeout(() => {
+        setShowLogin(false);
+        window.location.href = "/garaje";
+      }, 800);
     } catch {
       setAuthError("Credenciales inválidas. Intenta de nuevo.");
     }
