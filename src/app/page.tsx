@@ -40,7 +40,7 @@ const BENEFITS = [
   {
     icon: "\u26FD",
     title: "Cupones de Bencina",
-    desc: "Recibe recargas y descuentos en bencinera para que llegar a la junta te salga m\u00E1s barato.",
+    desc: "Recibe recargas y descuentos en bencinera para que llegar a la junta te salga más barato.",
   },
   {
     icon: "\uD83E\uDDFC",
@@ -102,7 +102,7 @@ export default function Home() {
       setAuthSuccess("Acceso concedido. Bienvenido al garaje.");
       setTimeout(() => { setShowLogin(false); setAuthSuccess(""); setAuthUsername(""); setAuthPassword(""); setAuthEmail(""); }, 1500);
     } catch {
-      setAuthError("Credenciales inv\u00E1lidas. Intenta de nuevo.");
+      setAuthError("Credenciales inválidas. Intenta de nuevo.");
     }
   };
 
@@ -138,7 +138,7 @@ export default function Home() {
         </div>
         <div className="flex items-center gap-5">
           <span className="text-[10px] font-mono tracking-widest text-emerald-400/70">RECOMPENSA: 0 PTS</span>
-          <button onClick={() => { setAuthMode("login"); setShowLogin(true); }} className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-yellow-400 transition-colors duration-300">INICIAR SESI\u00D3N</button>
+          <button onClick={() => { setAuthMode("login"); setShowLogin(true); }} className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-yellow-400 transition-colors duration-300">INICIAR SESIÓN</button>
         </div>
       </motion.nav>
 
@@ -153,7 +153,7 @@ export default function Home() {
           <h1 className="font-black uppercase italic tracking-[0.02em] text-zinc-100 text-7xl md:text-8xl lg:text-9xl leading-[0.85] text-center select-none glitch-text">BLACK LIST<br />CHILE</h1>
           <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-3/4 h-[2px] bg-gradient-to-r from-transparent via-yellow-500/40 to-transparent" />
         </motion.div>
-        <motion.p variants={fadeInUp} initial="initial" animate="animate" transition={{ duration: 0.5, delay: 0.4, ease: AGGRESSIVE_EASE }} className="mt-8 max-w-lg text-center text-zinc-400 text-sm tracking-wide leading-relaxed">Sube las fotos de tu proyecto, detalla d\u00F3nde realizaste cada modificaci\u00F3n y gana puntos de recompensa.</motion.p>
+        <motion.p variants={fadeInUp} initial="initial" animate="animate" transition={{ duration: 0.5, delay: 0.4, ease: AGGRESSIVE_EASE }} className="mt-8 max-w-lg text-center text-zinc-400 text-sm tracking-wide leading-relaxed">Sube las fotos de tu proyecto, detalla dónde realizaste cada modificación y gana puntos de recompensa.</motion.p>
         <motion.div variants={fadeInUp} initial="initial" animate="animate" transition={{ duration: 0.5, delay: 0.5, ease: AGGRESSIVE_EASE }} className="mt-6 flex items-center gap-4 text-[10px] font-mono tracking-widest text-zinc-600">
           <span>0 PILOTOS</span>
           <span className="w-1 h-1 bg-zinc-700" />
@@ -176,8 +176,8 @@ export default function Home() {
       {/* SECTION 2 - VALUE PROPOSITION */}
       <RevealSection className="relative z-10 py-24 md:py-32 border-t border-zinc-800/60">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <AnimatedHeading as="h2" className="hud-header text-3xl md:text-4xl mb-8">\u00DANETE AL CLUB</AnimatedHeading>
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2, ease: AGGRESSIVE_EASE }} className="text-zinc-300 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">Sube las im\u00E1genes de tu proyecto, detalla d\u00F3nde realizaste cada modificaci\u00F3n y gana puntos de recompensa. Cada voto de respeto te acerca al #01 del ranking nacional. La comunidad tuerca m\u00E1s grande de Chile, en un solo lugar.</motion.p>
+          <AnimatedHeading as="h2" className="hud-header text-3xl md:text-4xl mb-8">ÚNETE AL CLUB</AnimatedHeading>
+          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2, ease: AGGRESSIVE_EASE }} className="text-zinc-300 text-base md:text-lg leading-relaxed max-w-2xl mx-auto">Sube las imágenes de tu proyecto, detalla dónde realizaste cada modificación y gana puntos de recompensa. Cada voto de respeto te acerca al #01 del ranking nacional. La comunidad tuerca más grande de Chile, en un solo lugar.</motion.p>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.35, ease: AGGRESSIVE_EASE }} className="mt-10 inline-flex items-center gap-2 text-[10px] font-mono tracking-widest text-zinc-600 border border-zinc-800 px-6 py-4">
             <span className="w-1.5 h-1.5 bg-yellow-500 rotate-45" />
             +100 PUNTOS DE RECOMPENSA AL REGISTRARTE
@@ -194,8 +194,8 @@ export default function Home() {
             <span className="w-1.5 h-12 bg-yellow-500/80 mt-1 shrink-0" />
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-yellow-500/60 mb-1">RECOMPENSAS</p>
-              <AnimatedHeading as="h2" className="hud-header text-3xl md:text-4xl">LLEGA AL #1 Y OBT\u00C9N BENEFICIOS EXCLUSIVOS</AnimatedHeading>
-              <p className="text-zinc-500 text-sm tracking-wide mt-2">Mientras m\u00E1s subes en la Blacklist, m\u00E1s grandes son las recompensas.</p>
+              <AnimatedHeading as="h2" className="hud-header text-3xl md:text-4xl">LLEGA AL #1 Y OBTÉN BENEFICIOS EXCLUSIVOS</AnimatedHeading>
+              <p className="text-zinc-500 text-sm tracking-wide mt-2">Mientras más subes en la Blacklist, más grandes son las recompensas.</p>
             </div>
           </div>
           <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
@@ -224,7 +224,7 @@ export default function Home() {
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-yellow-500/60 mb-1">RANKING NACIONAL</p>
               <AnimatedHeading as="h2" className="hud-header text-3xl md:text-4xl">BLACKLIST // TOP 03</AnimatedHeading>
-              <p className="text-zinc-500 text-sm tracking-wide mt-1">Los proyectos m\u00E1s respetados de Chile. Datos en vivo desde Railway.</p>
+              <p className="text-zinc-500 text-sm tracking-wide mt-1">Los proyectos más respetados de Chile. Datos en vivo desde Railway.</p>
             </div>
           </div>
           {loading ? (
@@ -235,7 +235,7 @@ export default function Home() {
               </div>
             </div>
           ) : vehicles.length === 0 ? (
-            <div className="text-center py-20"><p className="text-zinc-600 text-sm font-mono tracking-wider">NING\u00DAN PROYECTO PUBLICADO A\u00DAN</p></div>
+            <div className="text-center py-20"><p className="text-zinc-600 text-sm font-mono tracking-wider">NINGÚN PROYECTO PUBLICADO AÚN</p></div>
           ) : (
             <StaggerGrid className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
               {vehicles.map((car) => (
@@ -275,7 +275,7 @@ export default function Home() {
                         ))}</div>
                       </div>
                       <div className="mt-4 pt-3 border-t border-zinc-800/40">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-600 group-hover:text-yellow-500/60 transition-colors duration-300 flex items-center gap-2">VER FICHA COMPLETA<span className="text-yellow-500/50 group-hover:translate-x-1 transition-transform duration-300">\u2192</span></span>
+                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-600 group-hover:text-yellow-500/60 transition-colors duration-300 flex items-center gap-2">VER FICHA COMPLETA<span className="text-yellow-500/50 group-hover:translate-x-1 transition-transform duration-300">→</span></span>
                       </div>
                     </div>
                   </HoverCard>
@@ -284,7 +284,7 @@ export default function Home() {
             </StaggerGrid>
           )}
           <div className="mt-14 text-center">
-            <SportButton className="border border-zinc-800 px-10 py-4 font-bold uppercase tracking-[0.2em] text-zinc-400 text-xs transition-colors duration-300 hover:border-yellow-500/30 hover:text-yellow-400 hover:shadow-[0_0_20px_rgba(234,179,8,0.08)]">VER BLACKLIST COMPLETO \u2192</SportButton>
+            <SportButton className="border border-zinc-800 px-10 py-4 font-bold uppercase tracking-[0.2em] text-zinc-400 text-xs transition-colors duration-300 hover:border-yellow-500/30 hover:text-yellow-400 hover:shadow-[0_0_20px_rgba(234,179,8,0.08)]">VER BLACKLIST COMPLETO →</SportButton>
           </div>
         </div>
       </RevealSection>
@@ -306,7 +306,7 @@ export default function Home() {
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-2 mb-3"><span className="w-1.5 h-1.5 bg-yellow-500 rotate-45" /><span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-yellow-500/60">LICENCIA DE PILOTO</span><span className="w-1.5 h-1.5 bg-yellow-500 rotate-45" /></div>
               <h2 className="hud-header text-2xl">GARAJE // ACCESO</h2>
-              <p className="text-xs text-zinc-500 mt-2 tracking-wide">{authMode === "login" ? "Ingresa tus credenciales." : "Reg\u00EDstrate y obt\u00E9n +100 PTS de recompensa como Fundador."}</p>
+              <p className="text-xs text-zinc-500 mt-2 tracking-wide">{authMode === "login" ? "Ingresa tus credenciales." : "Regístrate y obtén +100 PTS de recompensa como Fundador."}</p>
             </div>
             <div className="flex border-b border-zinc-800 mb-6">
               <button onClick={() => { setAuthMode("login"); setAuthError(""); setAuthSuccess(""); }} className={`flex-1 pb-3 text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-300 ${authMode === "login" ? "text-yellow-400 border-b-2 border-yellow-500/50" : "text-zinc-600 border-b-2 border-transparent"}`}>INGRESAR</button>
@@ -326,7 +326,7 @@ export default function Home() {
                 </div>
               )}
               <div>
-                <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">CONTRASE\u00D1A</label>
+                <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">CONTRASEÑA</label>
                 <input type="password" value={authPassword} onChange={(e) => setAuthPassword(e.target.value)} placeholder="\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022" required className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono tracking-wider placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20 transition-colors duration-300" />
               </div>
               <SportButton type="submit" className="w-full bg-yellow-500 text-black font-bold uppercase tracking-[0.2em] py-4 text-sm">{authMode === "login" ? "ENTRAR AL GARAJE" : "CREAR LICENCIA +100 PTS"}</SportButton>

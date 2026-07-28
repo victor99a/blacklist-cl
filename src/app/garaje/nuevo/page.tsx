@@ -11,8 +11,8 @@ type Step = 1 | 2 | 3;
 type ModEntry = { category: string; title: string; brand: string };
 
 const CATEGORIES = [
-  "Escape", "Repro ECU", "Suspensi\u00F3n", "Polarizado/PPF",
-  "Llantas", "Est\u00E9tica", "Audio", "Motor", "Transmisi\u00F3n", "Otro",
+  "Escape", "Repro ECU", "Suspensión", "Polarizado/PPF",
+  "Llantas", "Estética", "Audio", "Motor", "Transmisión", "Otro",
 ];
 
 const fadeIn = {
@@ -131,7 +131,7 @@ export default function NuevoProyectoPage() {
           <span className="w-1.5 h-10 bg-yellow-500/80" />
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-yellow-500/60 mb-0.5">
-              {step === 1 ? "PASO 1 // FICHA T\u00C9CNICA" : step === 2 ? "PASO 2 // MODIFICACIONES" : "PASO 3 // TALLER & RESE\u00D1A"}
+              {step === 1 ? "PASO 1 // FICHA TÉCNICA" : step === 2 ? "PASO 2 // MODIFICACIONES" : "PASO 3 // TALLER & RESEÑA"}
             </p>
             <h1 className="hud-header text-2xl">
               {step === 1 ? "NUEVO PROYECTO" : step === 2 ? "ESPECIFICACIONES" : "VERIFICAR TALLER"}
@@ -167,7 +167,7 @@ export default function NuevoProyectoPage() {
 
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">A\u00D1O</label>
+                    <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">AÑO</label>
                     <input value={year} onChange={(e) => setYear(e.target.value)} placeholder="2001" className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20" />
                   </div>
                   <div>
@@ -181,7 +181,7 @@ export default function NuevoProyectoPage() {
                 </div>
 
                 <div>
-                  <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">DESCRIPCI\u00D3N</label>
+                  <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">DESCRIPCIÓN</label>
                   <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} placeholder="Cuenta la historia de tu build..." className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono tracking-wider placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20 resize-none" />
                 </div>
 
@@ -216,12 +216,12 @@ export default function NuevoProyectoPage() {
             <motion.div key="s2" {...fadeIn} transition={{ duration: 0.35, ease: AGGRESSIVE_EASE }}>
               <div className="space-y-5">
                 <div className="p-4 border border-zinc-800 bg-zinc-950/50">
-                  <p className="text-[10px] font-mono tracking-widest text-zinc-500 mb-3">AGREGAR MODIFICACI\u00D3N</p>
+                  <p className="text-[10px] font-mono tracking-widest text-zinc-500 mb-3">AGREGAR MODIFICACIÓN</p>
                   <div className="grid grid-cols-3 gap-3 mb-3">
                     <select value={modCategory} onChange={(e) => setModCategory(e.target.value)} className="bg-zinc-900 border border-zinc-700 px-3 py-3 text-zinc-100 text-xs font-mono tracking-wider focus:outline-none focus:border-yellow-500/50">
                       {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
                     </select>
-                    <input value={modTitle} onChange={(e) => setModTitle(e.target.value)} placeholder="T\u00EDtulo de la mod" className="bg-zinc-900 border border-zinc-700 px-3 py-3 text-zinc-100 text-xs font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50" />
+                    <input value={modTitle} onChange={(e) => setModTitle(e.target.value)} placeholder="Título de la mod" className="bg-zinc-900 border border-zinc-700 px-3 py-3 text-zinc-100 text-xs font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50" />
                     <input value={modBrand} onChange={(e) => setModBrand(e.target.value)} placeholder="Marca (opcional)" className="bg-zinc-900 border border-zinc-700 px-3 py-3 text-zinc-100 text-xs font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50" />
                   </div>
                   <button onClick={addMod} className="border border-zinc-700 px-6 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 transition-all duration-300 hover:border-yellow-500/40 hover:text-yellow-400">
@@ -278,7 +278,7 @@ export default function NuevoProyectoPage() {
                 </div>
 
                 <div className="p-4 border border-zinc-800 bg-zinc-950/50">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 mb-3">CALIFICACI\u00D3N</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 mb-3">CALIFICACIÓN</p>
                   <div className="flex gap-1">
                     {[1, 2, 3, 4, 5].map((n) => (
                       <button key={n} type="button" onClick={() => setRating(n)} className={`w-10 h-10 border text-sm font-bold transition-all duration-300 ${n <= rating ? "bg-yellow-500/20 border-yellow-500/50 text-yellow-400" : "bg-zinc-900 border-zinc-700 text-zinc-600 hover:border-zinc-600"}`}>
@@ -290,12 +290,12 @@ export default function NuevoProyectoPage() {
 
                 <div>
                   <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">COMENTARIO DE LA EXPERIENCIA</label>
-                  <textarea value={reviewComment} onChange={(e) => setReviewComment(e.target.value)} rows={3} placeholder="Cuenta c\u00F3mo fue tu experiencia en el taller..." className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20 resize-none" />
+                  <textarea value={reviewComment} onChange={(e) => setReviewComment(e.target.value)} rows={3} placeholder="Cuenta cómo fue tu experiencia en el taller..." className="w-full bg-zinc-900 border border-zinc-700 px-4 py-3 text-zinc-100 text-sm font-mono placeholder:text-zinc-600 focus:outline-none focus:border-yellow-500/50 focus:ring-1 focus:ring-yellow-500/20 resize-none" />
                 </div>
 
                 <div className="border border-yellow-500/20 bg-yellow-500/5 px-4 py-4">
                   <p className="text-[11px] font-mono tracking-wider text-yellow-400/90 text-center">
-                    AL PUBLICAR RECIBIR\u00C1S +50 PUNTOS DE RECOMPENSA
+                    AL PUBLICAR RECIBIRÁS +50 PUNTOS DE RECOMPENSA
                   </p>
                 </div>
 

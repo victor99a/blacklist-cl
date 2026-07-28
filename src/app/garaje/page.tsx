@@ -77,7 +77,7 @@ export default function GarajePage() {
                     ? "text-yellow-300 bg-yellow-500/10 border border-yellow-400/60 shadow-[0_0_8px_rgba(234,179,8,0.2)]"
                     : "text-yellow-500/80 bg-yellow-500/10 border border-yellow-500/30"
                 }`}>
-                  {isFounder && <span className="text-[10px]">\u2605</span>}
+                  {isFounder && <span className="text-[10px]">★</span>}
                   {tierLabel}
                 </span>
               </div>
@@ -109,7 +109,7 @@ export default function GarajePage() {
 
         {vehicles.length === 0 ? (
           <div className="text-center py-20 border border-zinc-800/50 bg-zinc-950/50">
-            <p className="text-zinc-600 text-sm font-mono tracking-wider mb-4">TU GARAJE EST\u00C1 VAC\u00CDO</p>
+            <p className="text-zinc-600 text-sm font-mono tracking-wider mb-4">TU GARAJE ESTÁ VACÍO</p>
             <Link href="/garaje/nuevo" className="inline-block border border-yellow-500/30 px-8 py-4 font-bold uppercase tracking-[0.2em] text-yellow-400/80 text-xs transition-all duration-300 hover:bg-yellow-500/10">
               PUBLICAR PRIMER PROYECTO
             </Link>

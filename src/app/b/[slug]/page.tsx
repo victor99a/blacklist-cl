@@ -177,7 +177,7 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
               <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-zinc-500 mb-4">DAR RESPETO</p>
               <RespectButton vehicleId={vehicle.id} hasVoted={false} />
               <p className="text-[9px] font-mono tracking-widest text-zinc-600 mt-3 text-center">
-                +5 PTS DE RECOMPENSA AL DUE\u00D1O
+                +5 PTS DE RECOMPENSA AL DUEÑO
               </p>
             </div>
 
@@ -205,7 +205,7 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
 
             {/* Stats Card */}
             <div className="border border-zinc-800 bg-zinc-950/80 backdrop-blur-sm p-5">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-zinc-500 mb-3">ESTAD\u00CDSTICAS</p>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-zinc-500 mb-3">ESTADÍSTICAS</p>
               <div className="space-y-3">
                 <div className="flex justify-between text-xs font-mono tracking-wider">
                   <span className="text-zinc-500">Respeto</span>
@@ -216,11 +216,11 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
                   <span className="text-zinc-300">{vehicle.modifications.length}</span>
                 </div>
                 <div className="flex justify-between text-xs font-mono tracking-wider">
-                  <span className="text-zinc-500">Categor\u00EDas</span>
+                  <span className="text-zinc-500">Categorías</span>
                   <span className="text-zinc-300">{Object.keys(groupedMods).length}</span>
                 </div>
                 <div className="flex justify-between text-xs font-mono tracking-wider">
-                  <span className="text-zinc-500">A\u00F1o</span>
+                  <span className="text-zinc-500">Año</span>
                   <span className="text-zinc-300">{vehicle.year || "—"}</span>
                 </div>
               </div>

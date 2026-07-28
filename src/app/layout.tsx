@@ -22,11 +22,11 @@ export const metadata: Metadata = {
     template: "%s // BLACK LIST CHILE",
   },
   description:
-    "El garaje virtual de la comunidad tuerca chilena. Sube tu build, rese\u00F1a talleres y compite en el ranking nacional.",
+    "El garaje virtual de la comunidad tuerca chilena. Sube tu build, reseña talleres y compite en el ranking nacional.",
   openGraph: {
     title: "BLACK LIST CHILE // El Garaje Virtual & Ranking Automotriz",
     description:
-      "El garaje virtual de la comunidad tuerca chilena. Sube tu build, rese\u00F1a talleres y compite en el ranking nacional.",
+      "El garaje virtual de la comunidad tuerca chilena. Sube tu build, reseña talleres y compite en el ranking nacional.",
     siteName: "Blacklist.cl",
     locale: "es_CL",
     type: "website",
