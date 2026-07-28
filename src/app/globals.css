@@ -1,26 +1,239 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ═══════════════════════════════════════════════════
+   NFS Most Wanted (2005) + Fast & Furious — Blacklist.cl
+   Asphalt, Rain, Neon, Gold. Cinematic. Aggressive.
+   ═══════════════════════════════════════════════════ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* ─── Surfaces ─── */
+  --color-nfs-bg: #0A0A0C;
+  --color-nfs-surface: #18181B;
+  --color-nfs-elevated: #1F2128;
+
+  /* ─── Gold (Blacklist) ─── */
+  --color-nfs-gold: #EAB308;
+  --color-nfs-amber: #D97706;
+  --color-nfs-brass: #E5A93B;
+  --color-nfs-glow: rgba(234, 179, 8, 0.2);
+
+  /* ─── Neon / NOS (Underground) ─── */
+  --color-nfs-neon: #10B981;
+  --color-nfs-neon-light: #34D399;
+  --color-nfs-neon-glow: rgba(16, 185, 129, 0.2);
+
+  /* ─── Danger ─── */
+  --color-nfs-danger: #EF4444;
+  --color-nfs-orange: #F97316;
+  --color-nfs-heat: rgba(239, 68, 68, 0.15);
+
+  /* ─── Chrome ─── */
+  --color-nfs-steel-900: #374151;
+  --color-nfs-steel-500: #6B7280;
+  --color-nfs-steel-300: #9CA3AF;
+
+  /* ─── Glass ─── */
+  --color-nfs-glass: rgba(0, 0, 0, 0.85);
+  --color-nfs-glass-border: rgba(63, 63, 70, 0.5);
+
+  /* ─── Fonts ─── */
+  --font-sans: 'Oswald', 'Titillium Web', 'Inter', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', 'Fira Code', monospace;
+  --font-display: 'Oswald', 'Titillium Web', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ═══════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════ */
+
+@keyframes glitch {
+  0% { clip-path: inset(40% 0 61% 0); transform: translate(-2px, 2px); }
+  20% { clip-path: inset(92% 0 1% 0); transform: translate(1px, -3px); }
+  40% { clip-path: inset(43% 0 1% 0); transform: translate(-1px, 3px); }
+  60% { clip-path: inset(25% 0 58% 0); transform: translate(3px, 1px); }
+  80% { clip-path: inset(54% 0 7% 0); transform: translate(-3px, -2px); }
+  100% { clip-path: inset(58% 0 43% 0); transform: translate(2px, 1px); }
 }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(234, 179, 8, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(234, 179, 8, 0.6); }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { box-shadow: 0 0 6px rgba(16, 185, 129, 0.3); }
+  50% { box-shadow: 0 0 18px rgba(16, 185, 129, 0.6); }
+}
+
+@keyframes rain {
+  0% { transform: translateY(-10%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════
+   TEXTURES & OVERLAYS
+   ═══════════════════════════════════ */
+
+.bg-carbon {
+  background-color: #0A0A0C;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Rain streaks overlay */
+.rain-overlay::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(255, 255, 255, 0.006) 3px,
+    rgba(255, 255, 255, 0.006) 5px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Cinematic grain */
+.grain-overlay::after {
+  content: '';
+  position: absolute; inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Ambient Glows ─── */
+.bg-glow-gold {
+  background: radial-gradient(ellipse at center, rgba(234, 179, 8, 0.08) 0%, transparent 70%);
+}
+
+.bg-glow-neon {
+  background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
+}
+
+/* ═══════════════════════════════════
+   BASE
+   ═══════════════════════════════════ */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0A0A0C;
+  color: #9CA3AF;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════
+   HUD / TYPOGRAPHY UTILITIES
+   ═══════════════════════════════════ */
+
+.hud-header {
+  @apply font-black uppercase italic tracking-[0.15em] text-zinc-100;
+}
+
+.hud-sub {
+  @apply font-extrabold uppercase italic tracking-wider text-yellow-400/90;
+}
+
+.hud-neon {
+  @apply font-extrabold uppercase italic tracking-wider text-emerald-400;
+}
+
+/* Glitch text */
+.glitch-text:hover {
+  animation: glitch 0.3s infinite;
+}
+
+/* Blink cursor */
+.cursor-blink::after {
+  content: '█';
+  animation: blink 1s step-end infinite;
+  @apply text-yellow-500 ml-1;
+}
+
+/* ═══════════════════════════════════
+   NFS COMPONENT UTILITIES
+   ═══════════════════════════════════ */
+
+/* Segmented stat bar */
+.nfs-bar {
+  @apply flex gap-[2px];
+}
+
+.nfs-bar-segment {
+  @apply h-1.5 flex-1;
+}
+
+.nfs-bar-filled {
+  @apply bg-yellow-500 shadow-[0_0_4px_rgba(234,179,8,0.3)];
+}
+
+.nfs-bar-empty {
+  @apply bg-zinc-800;
+}
+
+/* Glow utilities */
+.glow-gold {
+  box-shadow: 0 0 20px rgba(234, 179, 8, 0.2);
+}
+
+.glow-gold-sm {
+  box-shadow: 0 0 8px rgba(234, 179, 8, 0.3);
+}
+
+.glow-neon {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+}
+
+/* Diagonal clip card */
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 0, 100% 95%, 95% 100%, 0 100%);
+}
+
+/* ═══════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════ */
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0A0A0C; }
+::-webkit-scrollbar-thumb { background: #374151; }
+::-webkit-scrollbar-thumb:hover { background: #EAB308; }
+
+/* Selection */
+::selection {
+  background: rgba(234, 179, 8, 0.3);
+  color: #fff;
+}
+
+/* NFS button skew effect */
+.btn-skew {
+  @apply relative overflow-hidden transition-all duration-300;
+}
+
+.btn-skew .btn-slider {
+  @apply absolute inset-0 translate-x-[-105%] skew-x-[-12deg] transition-transform duration-500;
+}
+
+.btn-skew:hover .btn-slider {
+  transform: translateX(105%) skewX(-12deg);
 }
