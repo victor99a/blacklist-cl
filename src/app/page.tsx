@@ -115,8 +115,11 @@ export default function Home() {
     try {
       const data = await api.signup(authUsername, authEmail, authPassword);
       setToken(data.token);
-      setAuthSuccess("Licencia creada. Bienvenido, Fundador.");
-      setTimeout(() => { setShowLogin(false); setAuthUsername(""); setAuthPassword(""); setAuthEmail(""); setAuthSuccess(""); }, 1500);
+      setAuthSuccess("Licencia creada. Redirigiendo...");
+      setTimeout(() => {
+        setShowLogin(false);
+        window.location.href = "/garaje/bienvenida";
+      }, 800);
     } catch (err) {
       setAuthError(err instanceof Error ? err.message : "Error al registrarse");
     }

@@ -40,9 +40,10 @@ export default function NuevoProyectoPage() {
   const [instagram, setInstagram] = useState("");
   const [tiktok, setTiktok] = useState("");
   const [description, setDescription] = useState("");
-  const [mainImage, setMainImage] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [photos, setPhotos] = useState<(File | null)[]>([null, null, null, null, null]);
+  const [photoUrls, setPhotoUrls] = useState<(string | null)[]>([null, null, null, null, null]);
+  const [photoPreviews, setPhotoPreviews] = useState<string[]>(["", "", "", "", ""]);
+  const [uploadingIndex, setUploadingIndex] = useState<number | null>(null);
 
   // Step 2 - Mods
   const [mods, setMods] = useState<ModEntry[]>([]);
@@ -57,13 +58,48 @@ export default function NuevoProyectoPage() {
   const [rating, setRating] = useState(0);
   const [reviewComment, setReviewComment] = useState("");
 
-  const handleImageUpload = async (file: File) => {
-    setUploading(true);
+  const handleImageUpload = async (file: File, index: number) => {
+    setUploadingIndex(index);
     try {
       const data = await api.upload(file);
-      if (data.url) setImageUrl(data.url);
+      if (data.url) {
+        const newUrls = [...photoUrls];
+        newUrls[index] = data.url;
+        setPhotoUrls(newUrls);
+      }
     } catch { /* ignore */ }
-    setUploading(false);
+    setUploadingIndex(null);
+  };
+
+  const handlePhotoSelect = (index: number) => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = (e: any) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        const newPhotos = [...photos];
+        newPhotos[index] = file;
+        setPhotos(newPhotos);
+        const newPreviews = [...photoPreviews];
+        newPreviews[index] = URL.createObjectURL(file);
+        setPhotoPreviews(newPreviews);
+        handleImageUpload(file, index);
+      }
+    };
+    input.click();
+  };
+
+  const removePhoto = (index: number) => {
+    const newPhotos = [...photos];
+    newPhotos[index] = null;
+    setPhotos(newPhotos);
+    const newPreviews = [...photoPreviews];
+    newPreviews[index] = "";
+    setPhotoPreviews(newPreviews);
+    const newUrls = [...photoUrls];
+    newUrls[index] = null;
+    setPhotoUrls(newUrls);
   };
 
   const addMod = () => {
@@ -82,6 +118,7 @@ export default function NuevoProyectoPage() {
     setError("");
 
     try {
+      const validUrls = photoUrls.filter((u): u is string => !!u);
       const vehicleData = {
         name, make, model,
         year: year || undefined,
@@ -89,7 +126,8 @@ export default function NuevoProyectoPage() {
         specs0_100: specs0_100 || undefined,
         drivetrain: drivetrain || undefined,
         city: city || "Santiago",
-        mainImageUrl: imageUrl || undefined,
+        mainImageUrl: validUrls[0] || undefined,
+        galleryUrls: validUrls.length > 1 ? validUrls.slice(1) : [],
         description,
         instagram: instagram || undefined,
         tiktok: tiktok || undefined,
@@ -235,21 +273,29 @@ export default function NuevoProyectoPage() {
                 </div>
 
                 <div>
-                  <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">FOTO PRINCIPAL</label>
-                  <input type="file" accept="image/*" onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      setMainImage(file);
-                      setImagePreview(URL.createObjectURL(file));
-                      handleImageUpload(file);
-                    }
-                  }} className="w-full text-zinc-400 text-xs font-mono file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-zinc-800 file:text-zinc-300 file:text-xs file:font-bold file:uppercase file:tracking-wider hover:file:bg-zinc-700" />
-                  {uploading && <p className="text-[10px] font-mono text-yellow-500/70 mt-2">Subiendo imagen...</p>}
-                  {imagePreview && (
-                    <div className="mt-3 h-40 bg-zinc-900 border border-zinc-800 flex items-center justify-center overflow-hidden">
-                      <img src={imagePreview} alt="" className="h-full object-cover" />
-                    </div>
-                  )}
+                  <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">FOTOS DEL PROYECTO (MÁX. 5)</label>
+                  <p className="text-[9px] font-mono tracking-widest text-zinc-600 mb-3">La foto #1 será la portada. Clickeá cada slot para subir o reemplazar.</p>
+                  <div className="grid grid-cols-5 gap-2">
+                    {[0, 1, 2, 3, 4].map((i) => (
+                      <div key={i} className="relative">
+                        {photoPreviews[i] ? (
+                          <div className="relative aspect-square bg-zinc-900 border border-zinc-700 overflow-hidden group cursor-pointer" onClick={() => handlePhotoSelect(i)}>
+                            <img src={photoPreviews[i]} alt="" className="w-full h-full object-cover" />
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center">
+                              <span className="text-white/0 group-hover:text-white/80 text-[10px] font-bold uppercase tracking-wider">CAMBIAR</span>
+                            </div>
+                            <button onClick={(e) => { e.stopPropagation(); removePhoto(i); }} className="absolute top-1 right-1 w-5 h-5 bg-black/70 border border-zinc-700 text-zinc-400 hover:text-red-400 text-[10px] font-mono flex items-center justify-center transition-colors">X</button>
+                            {i === 0 && <span className="absolute bottom-1 left-1 text-[7px] font-bold uppercase tracking-wider bg-yellow-500/80 text-black px-1 py-0.5">PORTADA</span>}
+                          </div>
+                        ) : (
+                          <div onClick={() => handlePhotoSelect(i)} className="aspect-square bg-zinc-900 border border-zinc-800 border-dashed flex flex-col items-center justify-center cursor-pointer hover:border-zinc-600 transition-colors">
+                            <span className="text-zinc-600 text-lg font-mono">{uploadingIndex === i ? "..." : "+"}</span>
+                            <span className="text-[7px] font-mono tracking-widest text-zinc-700 mt-1">SLOT {i + 1}</span>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="flex justify-end pt-4">
