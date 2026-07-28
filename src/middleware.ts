@@ -1,17 +1,19 @@
-import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export default auth((req) => {
+export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const isLoggedIn = !!req.auth;
+  const sessionToken = req.cookies.get("next-auth.session-token")?.value
+    ?? req.cookies.get("__Secure-next-auth.session-token")?.value;
 
-  // Protect /garaje routes
-  if (pathname.startsWith("/garaje") && !isLoggedIn) {
-    return NextResponse.redirect(new URL("/?login=required", req.url));
+  if (pathname.startsWith("/garaje") && !sessionToken) {
+    const url = new URL("/", req.url);
+    url.searchParams.set("login", "required");
+    return NextResponse.redirect(url);
   }
 
   return NextResponse.next();
-});
+}
 
 export const config = {
   matcher: ["/garaje/:path*"],
