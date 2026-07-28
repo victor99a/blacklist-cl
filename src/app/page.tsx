@@ -237,40 +237,65 @@ export default function Home() {
               {vehicles.map((car) => (
                 <StaggerItem key={car.id}>
                   <HoverCard glow={car.rank === 1} className={`group overflow-hidden clip-diagonal transition-colors duration-300 ${car.rank === 1 ? "border border-yellow-500/30 shadow-[0_0_30px_rgba(234,179,8,0.1)]" : "border border-zinc-800"} bg-nfs-surface/90 backdrop-blur-sm`}>
-                    <div className="relative h-52 bg-gradient-to-br from-zinc-800/40 via-zinc-900/80 to-zinc-950 flex items-center justify-center overflow-hidden">
+                    {/* 16:9 image area */}
+                    <div className="relative aspect-video bg-gradient-to-br from-zinc-800/40 via-zinc-900/80 to-zinc-950 overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10" />
                       <div className="absolute inset-0 opacity-[0.04]"><div className="absolute top-0 right-0 w-[200%] h-[200%] bg-gradient-to-br from-yellow-500 via-transparent to-transparent rotate-12 translate-y-[-30%]" /></div>
-                      <div className="text-center z-10">
-                        <div className="text-3xl font-black italic text-zinc-800 select-none">{car.vehicle.split(" ").slice(0, 2).join(" ")}</div>
-                        <div className="text-[10px] font-mono tracking-widest text-zinc-700 mt-1">{car.vehicle.split(" ").slice(2).join(" ")}</div>
-                      </div>
-                      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-transparent" />
-                      <div className="absolute top-4 left-4"><RankBadge rank={car.rank} /></div>
-                      {car.rank === 1 && (
-                        <div className="absolute top-4 right-4 animate-pulse-glow">
-                          <span className="text-[8px] font-bold uppercase tracking-[0.3em] text-yellow-400/80 bg-yellow-500/10 border border-yellow-500/30 px-2 py-1">#1</span>
+                      {/* Placeholder text */}
+                      <div className="absolute inset-0 flex items-center justify-center z-[1]">
+                        <div className="text-center">
+                          <div className="text-xl font-black italic text-zinc-800 select-none">{car.vehicle.split(" ").slice(0, 1).join(" ")}</div>
+                          <div className="text-[9px] font-mono tracking-widest text-zinc-700 mt-1">{car.vehicle.split(" ").slice(1).join(" ")}</div>
                         </div>
-                      )}
+                      </div>
+                      {/* Rank badge */}
+                      <div className="absolute top-3 left-3 z-20"><RankBadge rank={car.rank} /></div>
+                      {/* Bounty badge */}
+                      <div className="absolute top-3 right-3 z-20 flex items-center gap-1 bg-black/70 border border-yellow-500/30 px-2 py-1">
+                        <span className="text-yellow-400 text-xs font-black italic">{car.bounty}</span>
+                        <span className="text-[7px] font-mono tracking-widest text-yellow-500/70">PTS</span>
+                      </div>
+                      {/* Bottom content on image */}
+                      <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
+                        <h3 className="font-black uppercase italic tracking-wider text-base text-white drop-shadow-lg">{car.vehicle}</h3>
+                        <p className="text-[10px] font-mono text-yellow-500 mt-0.5">{car.pilot}</p>
+                      </div>
                     </div>
-                    <div className="p-5">
-                      <div className="flex items-start justify-between mb-4">
+
+                    {/* Body */}
+                    <div className="p-4">
+                      {/* Quick specs 3-col grid */}
+                      <div className="grid grid-cols-3 gap-2 py-2 border-y border-zinc-800 mb-3 text-center">
                         <div>
-                          <h3 className="font-bold uppercase italic tracking-wider text-zinc-100 text-base">{car.name}</h3>
-                          <p className="text-xs font-mono tracking-wider text-zinc-500 mt-0.5">{car.pilot} &bull; {car.city}</p>
+                          <p className="font-mono text-[11px] tracking-wider text-zinc-300">{Math.round(car.power * 50)} HP</p>
+                          <p className="text-[7px] font-mono tracking-widest text-zinc-600">POTENCIA</p>
                         </div>
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-yellow-500/70 whitespace-nowrap">[RESP {Math.round(car.respect * 85)}]</span>
+                        <div>
+                          <p className="font-mono text-[11px] tracking-wider text-zinc-300">{car.city?.slice(0, 6) || "—"}</p>
+                          <p className="text-[7px] font-mono tracking-widest text-zinc-600">CIUDAD</p>
+                        </div>
+                        <div>
+                          <p className="font-mono text-[11px] tracking-wider text-zinc-300">#{car.rank}</p>
+                          <p className="text-[7px] font-mono tracking-widest text-zinc-600">RANKING</p>
+                        </div>
                       </div>
-                      <div className="space-y-1.5 mb-4">
+
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {car.tags.map((tag) => (
+                          <span key={tag} className={`text-[8px] font-bold uppercase tracking-[0.15em] px-1.5 py-0.5 ${tag === "VERIFIED WORKSHOP" || tag === "NOS READY" ? "text-emerald-400/80 bg-emerald-500/5 border border-emerald-500/20" : "text-orange-400/80 bg-orange-500/5 border border-orange-500/20"}`}>[{tag}]</span>
+                        ))}
+                      </div>
+
+                      {/* Stat bars */}
+                      <div className="space-y-1 mb-3">
                         <StatBar value={car.power} label="POWER" />
                         <StatBar value={car.mods} label="MODS" />
                         <StatBar value={car.respect} label="RESPETO" />
                       </div>
-                      <div className="flex items-center justify-between pt-3 border-t border-zinc-800/60">
-                        <span className="text-[10px] font-mono tracking-widest text-red-400/80 bg-red-500/5 px-2 py-1 border border-red-500/20">RECOMPENSA: {car.bounty.toLocaleString()} PTS</span>
-                        <div className="flex gap-2">{car.tags.map((tag) => (
-                          <span key={tag} className={`text-[9px] font-bold uppercase tracking-[0.15em] px-2 py-1 ${tag === "VERIFIED WORKSHOP" || tag === "NOS READY" ? "text-emerald-400/80 bg-emerald-500/5 border border-emerald-500/20" : "text-orange-400/80 bg-orange-500/5 border border-orange-500/20"}`}>[{tag}]</span>
-                        ))}</div>
-                      </div>
-                      <div className="mt-4 pt-3 border-t border-zinc-800/40">
+
+                      {/* CTA */}
+                      <div className="pt-3 border-t border-zinc-800/40">
                         <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-600 group-hover:text-yellow-500/60 transition-colors duration-300 flex items-center gap-2">VER FICHA COMPLETA<span className="text-yellow-500/50 group-hover:translate-x-1 transition-transform duration-300">→</span></span>
                       </div>
                     </div>

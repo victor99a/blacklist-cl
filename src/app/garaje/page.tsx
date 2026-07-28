@@ -118,27 +118,44 @@ export default function GarajePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {vehicles.map((v) => (
               <div key={v.id} className="group border border-zinc-800 bg-zinc-950/90 backdrop-blur-sm overflow-hidden transition-all duration-300 hover:border-zinc-700">
-                <div className="relative h-44 bg-gradient-to-br from-zinc-800/40 to-zinc-950 flex items-center justify-center overflow-hidden">
+                <div className="relative aspect-video bg-gradient-to-br from-zinc-800/40 to-zinc-950 overflow-hidden">
                   {v.mainImageUrl ? (
                     <Image src={v.mainImageUrl} alt={v.name} fill className="object-cover" />
                   ) : (
-                    <div className="text-center">
-                      <div className="text-xl font-black italic text-zinc-800">{v.make}</div>
-                      <div className="text-[9px] font-mono tracking-widest text-zinc-700 mt-1">{v.model}</div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-center">
+                        <div className="text-xl font-black italic text-zinc-800">{v.make}</div>
+                        <div className="text-[9px] font-mono tracking-widest text-zinc-700 mt-1">{v.model}</div>
+                      </div>
                     </div>
                   )}
-                  <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-zinc-950 via-zinc-950/60 to-transparent" />
-                  {v.year && <span className="absolute top-3 right-3 text-[9px] font-mono tracking-widest text-zinc-600 bg-zinc-950/80 px-2 py-1 border border-zinc-800">{v.year}</span>}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  {v.power && (
+                    <div className="absolute top-3 right-3 bg-black/70 border border-yellow-500/30 px-2 py-1">
+                      <span className="text-[10px] font-mono tracking-widest text-yellow-400">{v.power} HP</span>
+                    </div>
+                  )}
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="font-black uppercase italic tracking-wider text-sm text-white drop-shadow-lg">{v.make} {v.model}</h3>
+                  </div>
                 </div>
                 <div className="p-4">
-                  <h3 className="font-bold uppercase italic tracking-wider text-zinc-100 text-base">{v.name}</h3>
-                  <p className="text-xs font-mono tracking-wider text-zinc-500 mt-0.5">{v.make} {v.model}</p>
-                  <div className="flex items-center gap-3 mt-3 text-[10px] font-mono tracking-widest text-zinc-600">
-                    {v.power && <span>{v.power} HP</span>}
-                    <span className="w-1 h-1 bg-zinc-700 rounded-full" />
-                    <span className="text-yellow-500/70">RESP {v.respectCount}</span>
+                  <h3 className="font-bold uppercase italic tracking-wider text-zinc-100 text-sm">{v.name}</h3>
+                  <div className="grid grid-cols-3 gap-2 py-2 border-y border-zinc-800 my-2 text-center">
+                    <div>
+                      <p className="font-mono text-[10px] tracking-wider text-zinc-400">{v.power || "—"}</p>
+                      <p className="text-[7px] font-mono tracking-widest text-zinc-600">HP</p>
+                    </div>
+                    <div>
+                      <p className="font-mono text-[10px] tracking-wider text-zinc-400">{v.year || "—"}</p>
+                      <p className="text-[7px] font-mono tracking-widest text-zinc-600">AÑO</p>
+                    </div>
+                    <div>
+                      <p className="font-mono text-[10px] tracking-wider text-yellow-500">{v.respectCount}</p>
+                      <p className="text-[7px] font-mono tracking-widest text-zinc-600">RESP</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 mt-4 pt-3 border-t border-zinc-800/50">
+                  <div className="flex items-center gap-2 mt-2">
                     <Link href={`/b/${v.slug}`} className="flex-1 text-center border border-zinc-800 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 transition-all duration-300 hover:border-zinc-700 hover:text-zinc-300">VER PROYECTO</Link>
                     <button className="flex-1 border border-zinc-800 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-all duration-300 hover:border-yellow-500/30 hover:text-yellow-400">EDITAR</button>
                   </div>
