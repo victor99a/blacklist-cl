@@ -7,8 +7,17 @@ import { ShareButton } from "./ShareButton";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
+export async function generateStaticParams() {
+  const slugs = [
+    "subaru-wrx-sti-stage3",
+    "golf-gti-mk75-repro",
+    "nissan-silvia-s15-spec-r",
+  ];
+  return slugs.map((slug) => ({ slug }));
+}
+
 async function fetchVehicle(slug: string) {
-  const res = await fetch(`${API_BASE}/api/vehicles/${slug}`, { cache: "no-store" });
+  const res = await fetch(`${API_BASE}/api/vehicles/${slug}`);
   if (!res.ok) return null;
   return res.json();
 }
