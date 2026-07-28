@@ -3,7 +3,7 @@
 import { useState, FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { createVehicle } from "@/lib/actions";
+import { api } from "@/lib/api";
 import { AGGRESSIVE_EASE } from "@/components/Animated";
 import Link from "next/link";
 
@@ -55,11 +55,10 @@ export default function NuevoProyectoPage() {
 
   const handleImageUpload = async (file: File) => {
     setUploading(true);
-    const formData = new FormData();
-    formData.append("file", file);
-    const res = await fetch("/api/upload", { method: "POST", body: formData });
-    const data = await res.json();
-    if (data.url) setImageUrl(data.url);
+    try {
+      const data = await api.upload(file);
+      if (data.url) setImageUrl(data.url);
+    } catch { /* ignore */ }
     setUploading(false);
   };
 
@@ -79,26 +78,22 @@ export default function NuevoProyectoPage() {
     setError("");
 
     try {
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("make", make);
-      formData.append("model", model);
-      formData.append("year", year);
-      formData.append("power", power);
-      formData.append("city", city || "Santiago");
-      formData.append("description", description);
-      formData.append("mainImageUrl", imageUrl);
-      formData.append("modifications", JSON.stringify(mods));
-
-      if (wsName.trim()) {
-        formData.append("workshop", JSON.stringify({
+      const vehicleData = {
+        name, make, model,
+        year: year || undefined,
+        power: power || undefined,
+        city: city || "Santiago",
+        mainImageUrl: imageUrl || undefined,
+        description,
+        modifications: mods,
+        workshop: wsName.trim() ? {
           name: wsName,
           cityRegion: wsCity || "Santiago",
           instagram: wsInstagram || undefined,
-        }));
-      }
+        } : undefined,
+      };
 
-      const result = await createVehicle(formData);
+      const result = await api.vehicles.create(vehicleData);
       if (result.success) {
         router.push(`/b/${result.slug}`);
       }

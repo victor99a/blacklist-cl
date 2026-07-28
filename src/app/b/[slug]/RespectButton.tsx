@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { voteRespect } from "@/lib/actions";
+import { api } from "@/lib/api";
 
 export function RespectButton({ vehicleId, hasVoted: initial }: { vehicleId: string; hasVoted: boolean }) {
   const [hasVoted, setHasVoted] = useState(initial);
@@ -14,7 +14,7 @@ export function RespectButton({ vehicleId, hasVoted: initial }: { vehicleId: str
     setLoading(true);
     setError("");
     try {
-      await voteRespect(vehicleId);
+      await api.vote(vehicleId);
       setHasVoted(true);
       router.refresh();
     } catch (err) {

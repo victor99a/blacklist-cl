@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
-import { prisma } from "@/lib/prisma";
-import { auth } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { RespectButton } from "./RespectButton";
 import { ShareButton } from "./ShareButton";
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+
+async function fetchVehicle(slug: string) {
+  const res = await fetch(`${API_BASE}/api/vehicles/${slug}`, { cache: "no-store" });
+  if (!res.ok) return null;
+  return res.json();
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const vehicle = await prisma.vehicle.findUnique({
-    where: { slug },
-    select: {
-      name: true, make: true, model: true, year: true,
-      mainImageUrl: true, description: true,
-      user: { select: { username: true } },
-    },
-  });
+  const vehicle = await fetchVehicle(slug);
   if (!vehicle) return { title: "Proyecto no encontrado" };
 
   const title = `${vehicle.make} ${vehicle.model} (${vehicle.year ?? "—"})`;
@@ -43,29 +42,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function VehicleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const session = await auth();
-
-  const vehicle = await prisma.vehicle.findUnique({
-    where: { slug },
-    include: {
-      user: { select: { id: true, username: true, displayName: true, avatarUrl: true, bountyScore: true } },
-      modifications: {
-        include: { workshop: { select: { name: true, isVerified: true } } },
-        orderBy: { createdAt: "asc" },
-      },
-      _count: { select: { votes: true } },
-    },
-  });
-
+  const vehicle = await fetchVehicle(slug);
   if (!vehicle || !vehicle.isPublished) notFound();
 
-  const hasVoted = session?.user?.id
-    ? await prisma.vote.findUnique({
-        where: { vehicleId_userId: { vehicleId: vehicle.id, userId: session.user.id } },
-      }).then(Boolean)
-    : false;
-
-  const groupedMods = vehicle.modifications.reduce<Record<string, typeof vehicle.modifications>>((acc, mod) => {
+  const groupedMods = (vehicle.modifications as any[]).reduce((acc: Record<string, any>, mod: any) => {
     const cat = mod.category.charAt(0).toUpperCase() + mod.category.slice(1);
     if (!acc[cat]) acc[cat] = [];
     acc[cat].push(mod);
@@ -85,11 +65,6 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
           <span className="font-black uppercase italic tracking-[0.15em] text-zinc-100 text-base">BLACKLIST</span>
         </Link>
         <div className="flex items-center gap-4">
-          {session?.user && (
-            <Link href="/garaje" className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 hover:text-yellow-400 transition-colors">
-              MI GARAJE
-            </Link>
-          )}
           <span className="text-[10px] font-mono tracking-widest text-zinc-600">FICHA // {vehicle.year || "—"}</span>
         </div>
       </nav>
@@ -176,7 +151,7 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
                     {cat}
                   </h3>
                   <div className="space-y-2">
-                    {mods.map((mod) => (
+                    {(mods as any[]).map((mod: any) => (
                       <div key={mod.id} className="flex items-center justify-between border-l-2 border-zinc-800 pl-4 py-2 hover:border-yellow-500/30 transition-colors">
                         <div>
                           <p className="text-sm font-mono tracking-wider text-zinc-300">{mod.title}</p>
@@ -200,7 +175,7 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
             {/* Respete Button */}
             <div className="border border-zinc-800 bg-zinc-950/80 backdrop-blur-sm p-6">
               <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-zinc-500 mb-4">DAR RESPETO</p>
-              <RespectButton vehicleId={vehicle.id} hasVoted={hasVoted} />
+              <RespectButton vehicleId={vehicle.id} hasVoted={false} />
               <p className="text-[9px] font-mono tracking-widest text-zinc-600 mt-3 text-center">
                 +5 PTS DE RECOMPENSA AL DUE\u00D1O
               </p>

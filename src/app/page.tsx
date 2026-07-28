@@ -2,7 +2,7 @@
 
 import { useState, useEffect, FormEvent } from "react";
 import { motion } from "framer-motion";
-import { signIn } from "next-auth/react";
+import { api, setToken, isAuthenticated } from "@/lib/api";
 import {
   RevealSection,
   AnimatedHeading,
@@ -87,24 +87,22 @@ export default function Home() {
   const [authSuccess, setAuthSuccess] = useState("");
 
   useEffect(() => {
-    fetch("/api/vehicles")
-      .then((res) => res.json())
-      .then((data) => {
-        setTopVehicles(Array.isArray(data) ? data : []);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    api.vehicles.top()
+      .then(setTopVehicles)
+      .catch(() => setTopVehicles([]))
+      .finally(() => setLoading(false));
   }, []);
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     setAuthError("");
-    const result = await signIn("credentials", { username: authUsername, password: authPassword, redirect: false });
-    if (result?.error) {
-      setAuthError("Credenciales inv\u00E1lidas. Intenta de nuevo.");
-    } else {
+    try {
+      const data = await api.login(authUsername, authPassword);
+      setToken(data.token);
       setAuthSuccess("Acceso concedido. Bienvenido al garaje.");
       setTimeout(() => { setShowLogin(false); setAuthSuccess(""); setAuthUsername(""); setAuthPassword(""); setAuthEmail(""); }, 1500);
+    } catch {
+      setAuthError("Credenciales inv\u00E1lidas. Intenta de nuevo.");
     }
   };
 
@@ -112,25 +110,14 @@ export default function Home() {
     e.preventDefault();
     setAuthError("");
     setAuthSuccess("");
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: authUsername, email: authEmail, password: authPassword }),
-    });
-    if (!res.ok) {
-      const data = await res.json();
-      setAuthError(data.error || "Error al registrarse");
-      return;
+    try {
+      const data = await api.signup(authUsername, authEmail, authPassword);
+      setToken(data.token);
+      setAuthSuccess("Licencia creada. Bienvenido, Fundador.");
+      setTimeout(() => { setShowLogin(false); setAuthUsername(""); setAuthPassword(""); setAuthEmail(""); setAuthSuccess(""); }, 1500);
+    } catch (err) {
+      setAuthError(err instanceof Error ? err.message : "Error al registrarse");
     }
-    setAuthSuccess("Licencia creada. Bienvenido, Fundador.");
-    setTimeout(async () => {
-      await signIn("credentials", { username: authUsername, password: authPassword, redirect: false });
-      setShowLogin(false);
-      setAuthUsername("");
-      setAuthPassword("");
-      setAuthEmail("");
-      setAuthSuccess("");
-    }, 1500);
   };
 
   const vehicles = topVehicles.length > 0 ? topVehicles : [];
