@@ -46,7 +46,7 @@ export default function BienvenidaPage() {
           <span className="w-2 h-2 bg-yellow-500 rotate-45" />
           <span className="font-black uppercase italic tracking-[0.15em] text-zinc-100 text-base">BLACKLIST</span>
         </Link>
-        <span className="text-[10px] font-mono tracking-widest text-emerald-400/70">GARAJE // BIENVENIDA</span>
+        <span className="text-[10px] font-mono tracking-widest text-emerald-400/70">BLACK LIST CHILE</span>
       </motion.nav>
 
       {/* Hero Welcome */}

@@ -18,24 +18,24 @@ const titillium = Titillium_Web({
 
 export const metadata: Metadata = {
   title: {
-    default: "BLACK LIST CHILE // El Garaje Virtual & Ranking Automotriz",
-    template: "%s // BLACK LIST CHILE",
+    default: "BLACK LIST CHILE | El Ranking Automotriz #1",
+    template: "%s | BLACK LIST CHILE",
   },
   description:
-    "El garaje virtual de la comunidad tuerca chilena. Sube tu build, reseña talleres y compite en el ranking nacional.",
+    "El ranking automotriz #1 de Chile. Sube tu build, gana respeto y compite por el puesto #01.",
   openGraph: {
-    title: "BLACK LIST CHILE // El Garaje Virtual & Ranking Automotriz",
+    title: "BLACK LIST CHILE | El Ranking Automotriz #1",
     description:
-      "El garaje virtual de la comunidad tuerca chilena. Sube tu build, reseña talleres y compite en el ranking nacional.",
+      "El ranking automotriz #1 de Chile. Sube tu build, gana respeto y compite por el puesto #01.",
     siteName: "Blacklist.cl",
     locale: "es_CL",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "BLACK LIST CHILE // El Garaje Virtual",
+    title: "BLACK LIST CHILE | Ranking Automotriz",
     description:
-      "El garaje virtual de la comunidad tuerca chilena.",
+      "El ranking automotriz #1 de Chile.",
   },
 };
 

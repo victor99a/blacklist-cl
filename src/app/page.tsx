@@ -144,7 +144,7 @@ export default function Home() {
         <div className="flex items-center gap-3">
           <span className="w-2 h-2 bg-yellow-500 rotate-45" />
           <span className="font-black uppercase italic tracking-[0.15em] text-zinc-100 text-base">BLACKLIST</span>
-          <span className="hidden sm:inline text-[10px] font-semibold uppercase tracking-[0.3em] text-zinc-600">// CHILE</span>
+          <span className="hidden sm:inline text-[10px] font-semibold uppercase tracking-[0.3em] text-zinc-600">RANKING NACIONAL</span>
         </div>
         <div className="flex items-center gap-5">
           <span className="text-[10px] font-mono tracking-widest text-emerald-400/70">RECOMPENSA: 0 PTS</span>
@@ -156,7 +156,7 @@ export default function Home() {
       <section className="relative z-10 min-h-[calc(100vh-64px)] flex flex-col items-center justify-center px-6 pb-16">
         <motion.div variants={fadeInUp} initial="initial" animate="animate" transition={{ duration: 0.5, delay: 0.1, ease: AGGRESSIVE_EASE }} className="flex items-center gap-2 mb-6">
           <span className="w-1.5 h-1.5 bg-yellow-500 rotate-45" />
-          <span className="text-[10px] font-semibold uppercase tracking-[0.35em] text-yellow-500/60">GARAJE // BIENVENIDO</span>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.35em] text-yellow-500/60">RANKING BLACKLIST</span>
           <span className="w-1.5 h-1.5 bg-yellow-500 rotate-45" />
         </motion.div>
         <motion.div variants={scaleIn} initial="initial" animate="animate" transition={{ duration: 0.7, delay: 0.2, ease: AGGRESSIVE_EASE }} className="relative">
@@ -229,7 +229,7 @@ export default function Home() {
             <span className="w-1.5 h-12 bg-yellow-500/80 mt-1 shrink-0" />
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-yellow-500/60 mb-1">RANKING NACIONAL</p>
-              <AnimatedHeading as="h2" className="hud-header text-3xl md:text-4xl">BLACKLIST // TOP 03</AnimatedHeading>
+              <AnimatedHeading as="h2" className="hud-header text-3xl md:text-4xl">BLACKLIST RANKING TOP 03</AnimatedHeading>
               <p className="text-zinc-500 text-sm tracking-wide mt-1">Los proyectos más respetados de Chile. Datos en vivo desde Railway.</p>
             </div>
           </div>
@@ -324,7 +324,7 @@ export default function Home() {
       <footer className="relative z-10 border-t border-zinc-800/50 py-8">
         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2"><span className="w-2 h-2 bg-yellow-500 rotate-45" /><span className="font-black uppercase italic tracking-[0.15em] text-zinc-600 text-sm">BLACKLIST.CL</span></div>
-          <div className="flex items-center gap-6 text-[10px] font-mono tracking-widest text-zinc-700"><span>&copy; 2026 GARAJE // SANTIAGO CHILE</span><span className="hidden sm:inline">BLACKLIST V.1.0</span></div>
+          <div className="flex items-center gap-6 text-[10px] font-mono tracking-widest text-zinc-700"><span>&copy; 2026 BLACK LIST CHILE</span><span className="hidden sm:inline">SANTIAGO</span></div>
         </div>
       </footer>
 
@@ -337,7 +337,7 @@ export default function Home() {
             <div className="absolute top-0 left-0 w-8 h-[1px] bg-yellow-500/50" /><div className="absolute top-0 left-0 w-[1px] h-8 bg-yellow-500/50" /><div className="absolute top-0 right-0 w-8 h-[1px] bg-yellow-500/50" /><div className="absolute top-0 right-0 w-[1px] h-8 bg-yellow-500/50" /><div className="absolute bottom-0 left-0 w-8 h-[1px] bg-yellow-500/50" /><div className="absolute bottom-0 left-0 w-[1px] h-8 bg-yellow-500/50" /><div className="absolute bottom-0 right-0 w-8 h-[1px] bg-yellow-500/50" /><div className="absolute bottom-0 right-0 w-[1px] h-8 bg-yellow-500/50" />
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-2 mb-3"><span className="w-1.5 h-1.5 bg-yellow-500 rotate-45" /><span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-yellow-500/60">LICENCIA DE PILOTO</span><span className="w-1.5 h-1.5 bg-yellow-500 rotate-45" /></div>
-              <h2 className="hud-header text-2xl">GARAJE // ACCESO</h2>
+              <h2 className="hud-header text-2xl">BLACK LIST CHILE</h2>
               <p className="text-xs text-zinc-500 mt-2 tracking-wide">{authMode === "login" ? "Ingresa tus credenciales." : "Regístrate y obtén +100 PTS de recompensa como Fundador."}</p>
             </div>
             <div className="flex border-b border-zinc-800 mb-6">

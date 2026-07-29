@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { useParams } from "next/navigation";
 import { RespectButton } from "./RespectButton";
 import { ShareButton } from "./ShareButton";
+import { AGGRESSIVE_EASE } from "@/components/Animated";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
@@ -92,7 +94,7 @@ export default function VehicleDetailPage() {
           <span className="font-black uppercase italic tracking-[0.15em] text-zinc-100 text-base">BLACKLIST</span>
         </Link>
         <div className="flex items-center gap-4">
-          <span className="text-[10px] font-mono tracking-widest text-zinc-600">FICHA // {vehicle.year || "—"}</span>
+          <span className="text-[10px] font-mono tracking-widest text-zinc-600">{vehicle.make} {vehicle.model} · {vehicle.year || "—"}</span>
         </div>
       </nav>
 
@@ -140,23 +142,40 @@ export default function VehicleDetailPage() {
               </div>
             </div>
 
-            {/* Gallery */}
+            {/* Gallery with animations */}
             {vehicle.galleryUrls && vehicle.galleryUrls.length > 0 && (
-              <div className="border border-zinc-800 bg-zinc-950/90 backdrop-blur-sm overflow-hidden">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease: AGGRESSIVE_EASE }}
+                className="border border-zinc-800 bg-zinc-950/90 backdrop-blur-sm overflow-hidden"
+              >
                 <div className="px-5 pt-4 pb-3 border-b border-zinc-800/50">
                   <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-yellow-500/60">GALERÍA</p>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-1 p-1">
                   {vehicle.galleryUrls.map((url: string, i: number) => (
-                    <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="relative aspect-square bg-zinc-900 overflow-hidden group">
-                      <Image src={url} alt={`${vehicle.name} - ${i + 2}`} fill className="object-cover transition-transform duration-300 group-hover:scale-105" />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center">
-                        <span className="text-white/0 group-hover:text-white/80 text-[10px] font-bold uppercase tracking-widest">AMPLIAR</span>
+                    <motion.a
+                      key={i}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: i * 0.1, ease: AGGRESSIVE_EASE }}
+                      whileHover={{ scale: 1.05 }}
+                      className="relative aspect-square bg-zinc-900 overflow-hidden group"
+                    >
+                      <Image src={url} alt={`${vehicle.name} - ${i + 2}`} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
+                        <span className="text-white/0 group-hover:text-white/90 text-[10px] font-bold uppercase tracking-widest transition-all duration-300">AMPLIAR →</span>
                       </div>
-                    </a>
+                    </motion.a>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             )}
 
             {/* Description */}

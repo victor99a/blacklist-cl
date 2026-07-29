@@ -26,7 +26,7 @@ export default function MusicPlayer() {
           }`}
         />
         <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 group-hover:text-yellow-400">
-          {expanded ? "CERRAR // MÚSICA" : "MÚSICA // NFS"}
+          {expanded ? "CERRAR MÚSICA" : "MÚSICA NFS"}
         </span>
       </motion.button>
 

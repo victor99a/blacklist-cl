@@ -46,7 +46,7 @@ export default function GarajePage() {
           <span className="font-black uppercase italic tracking-[0.15em] text-zinc-100 text-base">BLACKLIST</span>
         </Link>
         <div className="flex items-center gap-4">
-          <span className="text-[10px] font-mono tracking-widest text-emerald-400/70">GARAJE // PRIVADO</span>
+          <span className="text-[10px] font-mono tracking-widest text-emerald-400/70">MI GARAJE</span>
           <button onClick={handleLogout} className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 hover:text-red-400 transition-colors">SALIR</button>
         </div>
       </nav>
