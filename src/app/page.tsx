@@ -2,6 +2,7 @@
 
 import { useState, useEffect, FormEvent } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { api, setToken, isAuthenticated } from "@/lib/api";
 import {
   RevealSection,
@@ -25,6 +26,7 @@ type TopVehicle = {
   power: number | null;
   specs0_100: string | null;
   drivetrain: string | null;
+  mainImageUrl: string | null;
   modsCount: number;
   respect: number;
   bounty: number;
@@ -246,29 +248,30 @@ export default function Home() {
                 <StaggerItem key={car.id}>
                   <HoverCard glow={car.rank === 1} className={`group overflow-hidden clip-diagonal transition-colors duration-300 ${car.rank === 1 ? "border border-yellow-500/30 shadow-[0_0_30px_rgba(234,179,8,0.1)]" : "border border-zinc-800"} bg-nfs-surface/90 backdrop-blur-sm`}>
                     {/* 16:9 image area */}
-                    <div className="relative aspect-video bg-gradient-to-br from-zinc-800/40 via-zinc-900/80 to-zinc-950 overflow-hidden">
+                    <Link href={`/b/${car.slug}`} className="relative aspect-video bg-gradient-to-br from-zinc-800/40 via-zinc-900/80 to-zinc-950 overflow-hidden block">
+                      {car.mainImageUrl ? (
+                        <img src={car.mainImageUrl} alt={car.name} className="absolute inset-0 w-full h-full object-cover" />
+                      ) : null}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10" />
                       <div className="absolute inset-0 opacity-[0.04]"><div className="absolute top-0 right-0 w-[200%] h-[200%] bg-gradient-to-br from-yellow-500 via-transparent to-transparent rotate-12 translate-y-[-30%]" /></div>
-                      {/* Placeholder text */}
-                      <div className="absolute inset-0 flex items-center justify-center z-[1]">
-                        <div className="text-center">
-                          <div className="text-xl font-black italic text-zinc-800 select-none">{car.vehicle.split(" ").slice(0, 1).join(" ")}</div>
-                          <div className="text-[9px] font-mono tracking-widest text-zinc-700 mt-1">{car.vehicle.split(" ").slice(1).join(" ")}</div>
+                      {!car.mainImageUrl && (
+                        <div className="absolute inset-0 flex items-center justify-center z-[1]">
+                          <div className="text-center">
+                            <div className="text-xl font-black italic text-zinc-800 select-none">{car.vehicle.split(" ").slice(0, 1).join(" ")}</div>
+                            <div className="text-[9px] font-mono tracking-widest text-zinc-700 mt-1">{car.vehicle.split(" ").slice(1).join(" ")}</div>
+                          </div>
                         </div>
-                      </div>
-                      {/* Rank badge */}
+                      )}
                       <div className="absolute top-3 left-3 z-20"><RankBadge rank={car.rank} /></div>
-                      {/* Bounty badge */}
                       <div className="absolute top-3 right-3 z-20 flex items-center gap-1 bg-black/70 border border-yellow-500/30 px-2 py-1">
                         <span className="text-yellow-400 text-xs font-black italic">{car.bounty}</span>
                         <span className="text-[7px] font-mono tracking-widest text-yellow-500/70">PTS</span>
                       </div>
-                      {/* Bottom content on image */}
                       <div className="absolute bottom-0 left-0 right-0 p-4 z-20">
                         <h3 className="font-black uppercase italic tracking-wider text-base text-white drop-shadow-lg">{car.vehicle}</h3>
                         <p className="text-[10px] font-mono text-yellow-500 mt-0.5">{car.pilot}</p>
                       </div>
-                    </div>
+                    </Link>
 
                     {/* Body */}
                     <div className="p-4">
