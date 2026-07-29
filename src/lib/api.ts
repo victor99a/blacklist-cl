@@ -47,6 +47,7 @@ export const api = {
     create: (data: any) =>
       request("/vehicles", { method: "POST", body: JSON.stringify(data) }),
   },
+  ranking: () => request("/vehicles/ranking"),
 
   vote: (vehicleId: string) =>
     request(`/vote/${vehicleId}`, { method: "POST" }),

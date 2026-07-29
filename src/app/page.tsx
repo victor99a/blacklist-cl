@@ -175,7 +175,7 @@ export default function Home() {
           <SportButton onClick={() => { setAuthMode("signup"); setShowLogin(true); }} className="border border-yellow-500/40 bg-yellow-500/10 px-12 py-5 group">
             <span className="font-bold uppercase tracking-[0.25em] text-yellow-400 text-sm">PRESIONA PARA INICIAR</span>
           </SportButton>
-          <SportButton onClick={() => document.getElementById("ranking")?.scrollIntoView({ behavior: "smooth" })} className="border border-emerald-500/30 text-emerald-400/90 font-bold uppercase tracking-[0.2em] px-10 py-5 text-sm transition-all duration-300 hover:bg-emerald-500/10 hover:border-emerald-500/60 hover:shadow-[0_0_16px_rgba(16,185,129,0.15)]">VER BLACKLIST</SportButton>
+          <Link href="/blacklist" className="border border-emerald-500/30 text-emerald-400/90 font-bold uppercase tracking-[0.2em] px-10 py-5 text-sm transition-all duration-300 hover:bg-emerald-500/10 hover:border-emerald-500/60 hover:shadow-[0_0_16px_rgba(16,185,129,0.15)] inline-block">VER BLACKLIST</Link>
         </motion.div>
       </section>
 
@@ -316,7 +316,7 @@ export default function Home() {
             </StaggerGrid>
           )}
           <div className="mt-14 text-center">
-            <SportButton onClick={() => document.getElementById("ranking")?.scrollIntoView({ behavior: "smooth" })} className="border border-zinc-800 px-10 py-4 font-bold uppercase tracking-[0.2em] text-zinc-400 text-xs transition-colors duration-300 hover:border-yellow-500/30 hover:text-yellow-400 hover:shadow-[0_0_20px_rgba(234,179,8,0.08)]">VER BLACKLIST COMPLETO →</SportButton>
+            <Link href="/blacklist" className="border border-zinc-800 px-10 py-4 font-bold uppercase tracking-[0.2em] text-zinc-400 text-xs transition-colors duration-300 hover:border-yellow-500/30 hover:text-yellow-400 hover:shadow-[0_0_20px_rgba(234,179,8,0.08)] inline-block">VER BLACKLIST COMPLETO →</Link>
           </div>
         </div>
       </RevealSection>
