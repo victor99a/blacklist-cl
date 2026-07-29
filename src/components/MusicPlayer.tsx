@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { SkipBack, SkipForward, Play, Pause, Volume2, X } from "lucide-react";
 
 const NFS_PLAYLIST_ID = "6E833f42r1aCkmJFipyl5Q";
 const SPOTIFY_EMBED_URL = `https://open.spotify.com/embed/playlist/${NFS_PLAYLIST_ID}?utm_source=generator`;
@@ -32,7 +33,6 @@ export default function MusicPlayer() {
 
   return (
     <>
-      {/* ─── Floating bar player ─── */}
       {visible && (
         <motion.div
           initial={{ y: 80 }}
@@ -42,7 +42,6 @@ export default function MusicPlayer() {
           className="fixed bottom-0 left-0 right-0 z-40 bg-zinc-950/95 border-t border-zinc-800/70 backdrop-blur-lg"
         >
           <div className="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-4">
-            {/* Track info */}
             <div className="flex items-center gap-3 min-w-0 flex-1">
               <span className={`w-2 h-2 rounded-full shrink-0 ${isPlaying ? "bg-emerald-400 animate-pulse shadow-[0_0_6px_rgba(52,211,153,0.6)]" : "bg-zinc-600"}`} />
               <div className="min-w-0">
@@ -55,41 +54,30 @@ export default function MusicPlayer() {
               </div>
             </div>
 
-            {/* Controls */}
             <div className="flex items-center gap-3 shrink-0">
-              {/* Previous */}
               <button
                 onClick={() => setTrackIndex((trackIndex - 1 + TRACKS.length) % TRACKS.length)}
                 className="text-zinc-500 hover:text-zinc-300 transition-colors"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                <SkipBack size={14} />
               </button>
 
-              {/* Play/Pause */}
               <button
                 onClick={togglePlay}
                 className="w-8 h-8 flex items-center justify-center border border-zinc-700 hover:border-yellow-500/50 text-zinc-300 hover:text-yellow-400 transition-all duration-300"
               >
-                {isPlaying ? (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
-                ) : (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                )}
+                {isPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
               </button>
 
-              {/* Next */}
               <button
                 onClick={() => setTrackIndex((trackIndex + 1) % TRACKS.length)}
                 className="text-zinc-500 hover:text-zinc-300 transition-colors"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                <SkipForward size={14} />
               </button>
 
-              {/* Volume */}
               <div className="hidden sm:flex items-center gap-1.5">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-zinc-500">
-                  <path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/>
-                </svg>
+                <Volume2 size={12} className="text-zinc-500" />
                 <input
                   type="range"
                   min="0"
@@ -102,17 +90,15 @@ export default function MusicPlayer() {
                 />
               </div>
 
-              {/* Close */}
               <button
                 onClick={() => setVisible(false)}
                 className="text-zinc-600 hover:text-zinc-400 transition-colors ml-1"
               >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                <X size={12} />
               </button>
             </div>
           </div>
 
-          {/* Hidden Spotify embed for audio */}
           <div className="absolute -z-10 opacity-0 h-0 overflow-hidden">
             <iframe
               ref={iframeRef}
@@ -126,7 +112,6 @@ export default function MusicPlayer() {
         </motion.div>
       )}
 
-      {/* ─── Toggle button ─── */}
       {!visible && (
         <motion.button
           onClick={togglePlay}
@@ -134,7 +119,7 @@ export default function MusicPlayer() {
           whileTap={{ scale: 0.95 }}
           className="fixed bottom-6 right-6 z-40 flex items-center gap-2 bg-zinc-950/90 border border-zinc-800 backdrop-blur-md px-4 py-3 transition-colors duration-300 hover:border-yellow-500/40"
         >
-          <span className="w-2 h-2 rounded-full bg-zinc-600" />
+          <Play size={12} fill="currentColor" className="text-yellow-500" />
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">
             ESCUCHAR NFS
           </span>
