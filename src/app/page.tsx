@@ -175,7 +175,7 @@ export default function Home() {
           <SportButton onClick={() => { setAuthMode("signup"); setShowLogin(true); }} className="border border-yellow-500/40 bg-yellow-500/10 px-12 py-5 group">
             <span className="font-bold uppercase tracking-[0.25em] text-yellow-400 text-sm">PRESIONA PARA INICIAR</span>
           </SportButton>
-          <SportButton className="border border-emerald-500/30 text-emerald-400/90 font-bold uppercase tracking-[0.2em] px-10 py-5 text-sm transition-all duration-300 hover:bg-emerald-500/10 hover:border-emerald-500/60 hover:shadow-[0_0_16px_rgba(16,185,129,0.15)]">VER BLACKLIST</SportButton>
+          <SportButton onClick={() => document.getElementById("ranking")?.scrollIntoView({ behavior: "smooth" })} className="border border-emerald-500/30 text-emerald-400/90 font-bold uppercase tracking-[0.2em] px-10 py-5 text-sm transition-all duration-300 hover:bg-emerald-500/10 hover:border-emerald-500/60 hover:shadow-[0_0_16px_rgba(16,185,129,0.15)]">VER BLACKLIST</SportButton>
         </motion.div>
       </section>
 
@@ -222,7 +222,7 @@ export default function Home() {
       </RevealSection>
 
       {/* SECTION 4 - TOP 3 RANKING */}
-      <RevealSection className="relative z-10 py-24 md:py-32 border-t border-zinc-800/60">
+      <RevealSection id="ranking" className="relative z-10 py-24 md:py-32 border-t border-zinc-800/60">
         <div className="absolute inset-0 bg-grid pointer-events-none opacity-40" />
         <div className="relative max-w-6xl mx-auto px-6">
           <div className="flex items-start gap-4 mb-16">
@@ -307,7 +307,7 @@ export default function Home() {
 
                       {/* CTA */}
                       <div className="pt-3 border-t border-zinc-800/40">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-600 group-hover:text-yellow-500/60 transition-colors duration-300 flex items-center gap-2">VER FICHA COMPLETA<span className="text-yellow-500/50 group-hover:translate-x-1 transition-transform duration-300">→</span></span>
+                        <Link href={`/b/${car.slug}`} className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-600 group-hover:text-yellow-500/60 transition-colors duration-300 flex items-center gap-2">VER FICHA COMPLETA<span className="text-yellow-500/50 group-hover:translate-x-1 transition-transform duration-300">→</span></Link>
                       </div>
                     </div>
                   </HoverCard>
@@ -316,7 +316,7 @@ export default function Home() {
             </StaggerGrid>
           )}
           <div className="mt-14 text-center">
-            <SportButton className="border border-zinc-800 px-10 py-4 font-bold uppercase tracking-[0.2em] text-zinc-400 text-xs transition-colors duration-300 hover:border-yellow-500/30 hover:text-yellow-400 hover:shadow-[0_0_20px_rgba(234,179,8,0.08)]">VER BLACKLIST COMPLETO →</SportButton>
+            <SportButton onClick={() => document.getElementById("ranking")?.scrollIntoView({ behavior: "smooth" })} className="border border-zinc-800 px-10 py-4 font-bold uppercase tracking-[0.2em] text-zinc-400 text-xs transition-colors duration-300 hover:border-yellow-500/30 hover:text-yellow-400 hover:shadow-[0_0_20px_rgba(234,179,8,0.08)]">VER BLACKLIST COMPLETO →</SportButton>
           </div>
         </div>
       </RevealSection>
