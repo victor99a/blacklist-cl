@@ -146,7 +146,7 @@ export default function VehicleDetailPage() {
                 <div className="px-5 pt-4 pb-3 border-b border-zinc-800/50">
                   <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-yellow-500/60">GALERÍA</p>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-1 p-1">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-1 p-1">
                   {vehicle.galleryUrls.map((url: string, i: number) => (
                     <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="relative aspect-square bg-zinc-900 overflow-hidden group">
                       <Image src={url} alt={`${vehicle.name} - ${i + 2}`} fill className="object-cover transition-transform duration-300 group-hover:scale-105" />

@@ -40,9 +40,10 @@ export default function NuevoProyectoPage() {
   const [instagram, setInstagram] = useState("");
   const [tiktok, setTiktok] = useState("");
   const [description, setDescription] = useState("");
-  const [photos, setPhotos] = useState<(File | null)[]>([null, null, null, null, null]);
-  const [photoUrls, setPhotoUrls] = useState<(string | null)[]>([null, null, null, null, null]);
-  const [photoPreviews, setPhotoPreviews] = useState<string[]>(["", "", "", "", ""]);
+  const MAX_PHOTOS = 3;
+  const [photos, setPhotos] = useState<(File | null)[]>(Array(MAX_PHOTOS).fill(null));
+  const [photoUrls, setPhotoUrls] = useState<(string | null)[]>(Array(MAX_PHOTOS).fill(null));
+  const [photoPreviews, setPhotoPreviews] = useState<string[]>(Array(MAX_PHOTOS).fill(""));
   const [uploadingIndex, setUploadingIndex] = useState<number | null>(null);
 
   // Step 2 - Mods
@@ -273,10 +274,10 @@ export default function NuevoProyectoPage() {
                 </div>
 
                 <div>
-                  <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">FOTOS DEL PROYECTO (MÁX. 5)</label>
+                  <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-500 block mb-1.5">FOTOS DEL PROYECTO (MÁX. {MAX_PHOTOS})</label>
                   <p className="text-[9px] font-mono tracking-widest text-zinc-600 mb-3">La foto #1 será la portada. Clickeá cada slot para subir o reemplazar.</p>
-                  <div className="grid grid-cols-5 gap-2">
-                    {[0, 1, 2, 3, 4].map((i) => (
+                  <div className="grid grid-cols-3 gap-2">
+                    {[...Array(MAX_PHOTOS).keys()].map((i) => (
                       <div key={i} className="relative">
                         {photoPreviews[i] ? (
                           <div className="relative aspect-square bg-zinc-900 border border-zinc-700 overflow-hidden group cursor-pointer" onClick={() => handlePhotoSelect(i)}>
